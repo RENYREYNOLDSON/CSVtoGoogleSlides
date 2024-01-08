@@ -5,6 +5,11 @@
 *Contact: reynoldson2002@gmail.com*\
 
 ## Accessing the Google Slides API
+There is a dedicated Google Cloud Project for this application.
+
+Google Client ID: '341236422016-lcv56vfvqpcsdoqq6ahjpa6ghrpn57rc.apps.googleusercontent.com'
+Google App ID: '341236422016'
+Required Scopes: 'https://www.googleapis.com/auth/drive.metadata.readonly https://www.googleapis.com/auth/presentations https://www.googleapis.com/auth/drive'
 
 ## AWS REST API Endpoints
 ### Post Request
