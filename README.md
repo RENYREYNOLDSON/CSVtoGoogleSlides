@@ -6,6 +6,23 @@
 
 ## AWS REST API Endpoints
 # Post Request
+API Endpoint
 ~~~
 https://pq2xyqsgla.execute-api.eu-north-1.amazonaws.com/testing
+~~~
+API Call Example
+~~~
+  fetch("https://pq2xyqsgla.execute-api.eu-north-1.amazonaws.com/testing/", {
+      method: "POST",
+      body: JSON.stringify({
+          accessToken,
+          fileID,
+          outputName,
+          CSVdata
+  }),
+      headers: {
+          "Content-type": "application/json",
+          "Accept":"*/*"
+  }
+  })
 ~~~
