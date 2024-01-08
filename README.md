@@ -13,7 +13,7 @@ There is a dedicated Google Cloud Project for this application as we need to rea
 **Google App ID:** '341236422016'\
 **Required Scopes:** 'https://www.googleapis.com/auth/drive.metadata.readonly https://www.googleapis.com/auth/presentations https://www.googleapis.com/auth/drive'
 
-The GooglePicker API is a great way to select slide files within a web app. It provides a window with the familiar Google Design and allows us to return the ID of the required template file.
+The Google Picker API is a great way to select slide files within a web app. It provides a window with the familiar Google Design and allows us to return the ID of the required template file. Documentation of this can be found here https://developers.google.com/drive/picker/guides/overview
 
 ## AWS REST API Endpoints
 ### Post Request
