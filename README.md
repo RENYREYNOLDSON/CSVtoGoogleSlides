@@ -6,4 +6,4 @@
 
 ## AWS REST API Endpoints
 # Post Request
-https://pq2xyqsgla.execute-api.eu-north-1.amazonaws.com/testing
+~~~ https://pq2xyqsgla.execute-api.eu-north-1.amazonaws.com/testing ~~~
