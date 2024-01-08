@@ -10,6 +10,11 @@ API Endpoint
 ~~~
 https://pq2xyqsgla.execute-api.eu-north-1.amazonaws.com/testing
 ~~~
+The passed data should be raw JSON containing {Google Access Token, Template File ID, Output File Name, CSV Data}
+Example JSON Data
+~~~
+  
+~~~
 API Call Example
 ~~~
   fetch("https://pq2xyqsgla.execute-api.eu-north-1.amazonaws.com/testing/", {
