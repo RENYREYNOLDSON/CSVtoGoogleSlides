@@ -1,3 +1,4 @@
 # CSVtoGoogleSlides
 
-## Developed for Advertize.net for integration with AWS lambda. Contact: reynoldson2002@gmail.com
+## Developed for Advertize.net for integration with AWS lambda. 
+## Contact: reynoldson2002@gmail.com
