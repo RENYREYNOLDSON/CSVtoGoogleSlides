@@ -5,7 +5,7 @@
 *Contact: reynoldson2002@gmail.com*\
 
 ## AWS REST API Endpoints
-# Post Request
+### Post Request
 API Endpoint
 ~~~
 https://pq2xyqsgla.execute-api.eu-north-1.amazonaws.com/testing
