@@ -4,6 +4,8 @@
 *Developed for Advertize.net for integration with AWS lambda.*\
 *Contact: reynoldson2002@gmail.com*\
 
+index.html has example code to access the API from a web app.
+
 ## Accessing the Google Slides API
 There is a dedicated Google Cloud Project for this application as we need to read and write to Google Slide files. Currently it is not published so your gmail account will need to be on the testing user's list to access. To add an account, email reynoldson2002@gmail.com and it will be added ASAP. On logging in to google through the app portal an access token will be created.
 
