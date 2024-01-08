@@ -33,3 +33,10 @@ API Call Example
   }
   })
 ~~~
+
+### Getting a Response from AWS
+
+
+
+
+
