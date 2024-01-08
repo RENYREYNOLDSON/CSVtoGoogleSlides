@@ -26,9 +26,17 @@ The passed data should be raw JSON containing
 2. Template File ID
 3. Output File Name
 4. CSV Data
+   
 Example JSON Data
 ~~~
-  
+{"accessToken":"ya29.a0AfB_byCpXNY9ZOryFUqdK_Ru3kVMNtyQFKK6djp5R1QbMqd0Qo8a5eN17D1K9NJajNZtj4_KoZX9pMT7Rs169",
+"fileID":"1JTViOt75gUXKLHf-sOYe_CPsvThV7J0AaKjWa9LwlIw",
+"outputName":"OUTPUT File",
+"CSVdata":{"data":[["Slide Type","Table Type","Title","Table Name","Target Calls","Data","","","","","","","","","","","",""],
+  ["Skip","","","Title Slide","","","","","","","","","","","","","",""],
+  ["Single","Ripple","All Accounts","Combined","3528","10/08/2023","$214,463","98@$2,188","0.50","1,778@$121","$138,182","71@$1,946","0.57"],
+  ["Single","Ripple","All Google","","","10/08/2023","$138,182","","71@$1,946","0.57","1,778@$78","(,25,46,)","$722,119","","480@$1,504","0.77"],                       ["Single","Ripple","Goog/Criminal","","","10/08/2023","$65,433","13@$5,033","17@$3,849","0.34","615@$106","(,13,4,)","$278,217"]
+}
 ~~~
 API Call Example
 ~~~
