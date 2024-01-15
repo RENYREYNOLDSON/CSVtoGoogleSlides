@@ -17,7 +17,7 @@ The **Google Picker API** is a great way to select slide files within a web app.
 
 ## AWS REST API Endpoints
 ![Asyncrhonous REST API Architecture](https://d2908q01vomqb2.cloudfront.net/fc074d501302eb2b93e2554793fcaf50b3bf7291/2021/05/06/Figure-1.jpg)
-<img src="architecture.PNG" alt="lasagna">
+
 ### Post Request
 API Endpoint
 ~~~
