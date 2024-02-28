@@ -64,8 +64,6 @@ API Call Example
   }
   })
 ~~~
-
-### Getting a Response from AWS
 Sometimes the API will take several minutes to process and get data from Google. Therefore no response is given, look at asynchronous invocation to get a response.
 
 ## Asynchronous Invocation
