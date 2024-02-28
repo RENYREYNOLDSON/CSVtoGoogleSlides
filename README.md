@@ -277,7 +277,8 @@ Retry Attempts: 0
 - This is used to create roles and change the permissions for each role.
 - For this project, one role was used and the ARN was given to each of the different service objects used.
 
-
+## Resources
+https://aws.amazon.com/blogs/architecture/managing-asynchronous-workflows-with-a-rest-api/
 
 
 
