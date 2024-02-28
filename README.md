@@ -84,7 +84,7 @@ The passed data should be raw JSON containing
 1. Google Access Token
 2. Template File ID
 3. Output File Name
-4. CSV Data
+4. CSV Data (Encoded)
    
 Example JSON Data
 ~~~
@@ -100,19 +100,79 @@ Example JSON Data
 ~~~
 API Call Example
 ~~~
-  fetch("https://pq2xyqsgla.execute-api.eu-north-1.amazonaws.com/testing/", {
-      method: "POST",
-      body: JSON.stringify({
-          accessToken,
-          fileID,
-          outputName,
-          CSVdata
-  }),
-      headers: {
-          "Content-type": "application/json",
-          "Accept":"*/*"
-  }
-  })
+   fetch("https://u5ydjdjy0j.execute-api.eu-north-1.amazonaws.com/test", {
+       method: "POST",
+       body: JSON.stringify({
+           accessToken,
+           fileID,
+           outputName,
+           CSVdata
+   }),
+       headers: {
+           "Content-type": "application/json",
+           "Accept":"*/*"
+   }
+   })
+   .then((response) => response.json())
+   .then((json) => {
+     console.log(json);
+     console.log(json["context"]["request-id"]);
+     key = json["context"]["request-id"];
+     const startTime = new Date().getTime();
+     pollingFunction(key,startTime);
+   });
+~~~
+Polling Function
+~~~
+   //POLL UNTIL A NON FALSE RESULT IS REACHED (the slide code has finished processing, return a link)
+   function pollingFunction(key,startTime){
+     console.log(key)
+     const currentTime = new Date().getTime();
+     const elapsedTime = currentTime - startTime;
+     document.getElementById("responseText").innerText = "POST Request Sent - Waiting on Response... Polling Time Elapsed: "+elapsedTime/1000+"s"
+     if (elapsedTime >= 300000) { // 5 minutes = 300,000 milliseconds
+       console.log("Polling stopped after 5 minutes.");
+       return; // Stop polling
+     };
+
+     fetch("https://u5ydjdjy0j.execute-api.eu-north-1.amazonaws.com/test?key="+key, {
+                   method: "GET",
+                   headers: {
+                       "Content-type": "application/json",
+                       "Accept":"*/*",
+               }
+               })
+               .then((response) => response.json())
+               .then((json) => {
+                 console.log(json)
+                 console.log(json["body"])
+                 if (json["body"] !== '"False"') {
+                   // If response is not 'False', do something with the response or stop polling
+                   console.log("FINISHED")
+                   if (json["body"].includes("https://")){
+                     document.getElementById("responseText").innerText = "SUCCESSFUL RESPONSE:\nLink: "+json["body"]+"\nPolling Time Elapsed: "+elapsedTime/1000+"s"
+                   }
+                   else{
+                     document.getElementById("responseText").innerText = "FAILED RESPONSE:\n"+json["body"]+"\nPolling Time Elapsed: "+elapsedTime/1000+"s"
+                   };
+                   
+                 } else {
+                   // If response is 'False', continue polling after a delay of 10 seconds
+                   setTimeout(() => {
+                       pollingFunction(key, startTime);
+                   }, 10000); // 10000 milliseconds = 10 seconds
+                 }
+               })
+               .catch((error) => {
+                 console.error('Error:', error);
+                 // Retry polling after a delay of 10 seconds in case of error
+                 setTimeout(() => {
+                     pollingFunction(key, startTime);
+                 }, 10000); // 10000 milliseconds = 10 seconds
+             });;
+   };
+
+
 ~~~
 
 ### Getting a Response from AWS
