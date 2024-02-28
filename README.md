@@ -29,7 +29,7 @@ We can send the data to an AWS REST API which passes it through directly to AWS 
 ### Post Request
 API Endpoint
 ~~~
-https://pq2xyqsgla.execute-api.eu-north-1.amazonaws.com/testing
+https://pq2xyqsgla.execute-api.eu-north-1.amazonaws.com/build
 ~~~
 The passed data should be raw JSON containing 
 1. Google Access Token
@@ -53,7 +53,7 @@ Example JSON Data
 ```
 API Call Example
 ```js
-  fetch("https://pq2xyqsgla.execute-api.eu-north-1.amazonaws.com/testing/", {
+  fetch("https://pq2xyqsgla.execute-api.eu-north-1.amazonaws.com/build", {
       method: "POST",
       body: JSON.stringify({
           accessToken,
