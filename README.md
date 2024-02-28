@@ -1,5 +1,5 @@
 # CSVtoGoogleSlides
-### This repository documents the development of Synchronous and Asynchronous serverless functions developed in AWS Lambda.
+### This repository documents the development of Synchronous and Asynchronous serverless functions developed using AWS Lambda.
 *Developed for Advertize.net for integration with AWS lambda.*\
 *Contact: reynoldson2002@gmail.com*
 
