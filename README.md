@@ -38,7 +38,7 @@ The passed data should be raw JSON containing
 4. CSV Data
    
 Example JSON Data
-~~~
+```js
 {
 "accessToken":"ya29.a0AfB_byCpXNY9ZOryFUqdK_Ru3kVMNtyQFKK6djp5R1QbMqd0Qo8a5eN17D1K9NJajNZtj4_KoZX9pMT7Rs169",
 "fileID":"1JTViOt75gUXKLHf-sOYe_CPsvThV7J0AaKjWa9LwlIw",
@@ -50,7 +50,7 @@ Example JSON Data
   ["Single","Ripple","All Google","","","10/08/2023","$138,182","","71@$1,946","0.57","1,778@$78","(,25,46,)","$722,119","","480@$1,504","0.77"],                          
   ["Single","Ripple","Goog/Criminal","","","10/08/2023","$65,433","13@$5,033","17@$3,849","0.34","615@$106","(,13,4,)","$278,217"]
 }
-~~~
+```
 API Call Example
 ```js
   fetch("https://pq2xyqsgla.execute-api.eu-north-1.amazonaws.com/testing/", {
@@ -91,16 +91,16 @@ The passed data should be raw JSON containing
 4. CSV Data (Encoded so that we can store in DynamoDB)
    
 Example JSON Data
-~~~
+```js
 {
 "accessToken":"ya29.a0AfB_byCpXNY9ZOryFUqdK_Ru3kVMNtyQFKK6djp5R1QbMqd0Qo8a5eN17D1K9NJajNZtj4_KoZX9pMT7Rs169",
 "fileID":"1JTViOt75gUXKLHf-sOYe_CPsvThV7J0AaKjWa9LwlIw",
 "outputName":"OUTPUT File",
 "CSVdata":"Slide Type¶Table Type¶Title¶Table Name¶Target Calls¶Data¶¶¶¶¶¶¶¶¶¶¦Skip¶¶¶Title Slide¶¶¶¶¶¶¶¶¶¶¶¶¦Single¶Ripple¶All Accounts¶Combined¶6421¶10/12/2023¶13,125@1.99¶$788¶6,502@1.70¶$3,821¶6,623@2.39¶$2,766¶¶¶¶¦Single¶Ripple¶All Google¶¶¶11/12/2033¶$3,821¶44¶6,556@1.70¶$14,532¶245¶22,532@1.54¶0@$0¶0@$0¶6,502@$1¶22,432@$1¦"
 }
-~~~
+```
 API Call Example
-~~~
+```js
    CSVdata=CSVdata.map(innerArray => innerArray.join('¶')).join('¦');
    fetch("https://u5ydjdjy0j.execute-api.eu-north-1.amazonaws.com/test", {
        method: "POST",
@@ -121,9 +121,9 @@ API Call Example
      const startTime = new Date().getTime();
      pollingFunction(key,startTime);
    });
-~~~
+```
 Polling Function
-~~~
+```js
    //POLL UNTIL A NON FALSE RESULT IS REACHED (the slide code has finished processing, return a link)
    function pollingFunction(key,startTime){
      const currentTime = new Date().getTime();
@@ -168,7 +168,7 @@ Polling Function
    };
 
 
-~~~
+```
 Look at index.html to understand the format of the responses.
 
 
