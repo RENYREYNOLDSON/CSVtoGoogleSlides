@@ -278,7 +278,7 @@ Retry Attempts: 0
 - For this project, one role was used and the ARN was given to each of the different service objects used.
 
 ## Resources
-https://aws.amazon.com/blogs/architecture/managing-asynchronous-workflows-with-a-rest-api/
+[1] Managing Asynchronous Workflows with a REST API https://aws.amazon.com/blogs/architecture/managing-asynchronous-workflows-with-a-rest-api/
 
 
 
