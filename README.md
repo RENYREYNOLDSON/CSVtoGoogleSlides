@@ -175,7 +175,37 @@ Look at index.html to understand the format of the responses.
 Below are more details on the correct implementation of the used AWS services, to aid the development of further functions on AWS.
 
 ### API Gateway
-
+- Each API contains multiple created methods e.g. GET,POST,OPTIONS.
+- The option for cross-origin resource sharing (CORS) must be enabled on the API to allow calling of the function from any URL.
+- The INTEGRATION REQUEST is responsible for integrating the request with other AWS services, to pass our data to DynamoDB we use a Mapping Template in the Integration Request:
+~~~
+{ 
+    "TableName": "CSVtoSlides_Table",
+    "Item": {
+	"ID": {
+            "S": "$context.requestId"
+            },
+        "key":{
+            "S": "$context.requestId"
+        },
+        "accessToken": {
+            "S": "$input.path('$.accessToken')"
+            },
+        "fileID": {
+            "S": "$input.path('$.fileID')"
+        },
+        "outputName": {
+            "S": "$input.path('$.outputName')"
+        },
+        "CSVdata": {
+            "S":"$input.path('$.CSVdata')"
+        },
+        "Completed":{
+            "S":"False"
+        }
+    }
+}
+~~~
 ### DynamoDB
 
 ### Lambda
