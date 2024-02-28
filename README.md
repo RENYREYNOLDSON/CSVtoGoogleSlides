@@ -16,12 +16,9 @@ There is a dedicated Google Cloud Project for this application as we need to rea
 
 The **Google Picker API** is a great way to select slide files within a web app. It provides a window with the familiar Google Design and allows us to return the ID of the required template file. Documentation of this can be found here https://developers.google.com/drive/picker/guides/overview. To use this, the page URL must be added on the Google Cloud Project Console.
 
-## AWS REST API Endpoints
-## AWS Lambda
-![Asyncrhonous REST API Architecture](https://d2908q01vomqb2.cloudfront.net/fc074d501302eb2b93e2554793fcaf50b3bf7291/2021/05/06/Figure-1.jpg)
-
+## AWS REST API's
+## Synchronous Invocation
 ![Syncrhonous REST API Architecture](https://miro.medium.com/v2/resize:fit:1400/format:webp/1*ZN6LVw0r9Po3asAqgu2oLg.png)
-
 ### Post Request
 API Endpoint
 ~~~
@@ -63,7 +60,54 @@ API Call Example
 ~~~
 
 ### Getting a Response from AWS
-Sometimes the API will take several minutes to process and get data from Google. Therefore this POST request is asynchronous and no response is given.
+Sometimes the API will take several minutes to process and get data from Google. Therefore no response is given, look at asynchronous invocation to get a response.
+
+## Asynchronous Invocation
+![Asyncrhonous REST API Architecture](https://d2908q01vomqb2.cloudfront.net/fc074d501302eb2b93e2554793fcaf50b3bf7291/2021/05/06/Figure-1.jpg)
+### Post Request with Polling
+API Endpoint
+~~~
+https://pq2xyqsgla.execute-api.eu-north-1.amazonaws.com/testing
+~~~
+The passed data should be raw JSON containing 
+1. Google Access Token
+2. Template File ID
+3. Output File Name
+4. CSV Data
+   
+Example JSON Data
+~~~
+{
+"accessToken":"ya29.a0AfB_byCpXNY9ZOryFUqdK_Ru3kVMNtyQFKK6djp5R1QbMqd0Qo8a5eN17D1K9NJajNZtj4_KoZX9pMT7Rs169",
+"fileID":"1JTViOt75gUXKLHf-sOYe_CPsvThV7J0AaKjWa9LwlIw",
+"outputName":"OUTPUT File",
+"CSVdata":{"data":[["Slide Type","Table Type","Title","Table Name","Target Calls","Data","","","","","","","","","","","",""],
+  ["Skip","","","Title Slide","","","","","","","","","","","","","",""],
+  ["Single","Ripple","All Accounts","Combined","3528","10/08/2023","$214,463","98@$2,188","0.50","1,778@$121","$138,182","71@$1,946","0.57"],
+  ["Single","Ripple","All Google","","","10/08/2023","$138,182","","71@$1,946","0.57","1,778@$78","(,25,46,)","$722,119","","480@$1,504","0.77"],                       ["Single","Ripple","Goog/Criminal","","","10/08/2023","$65,433","13@$5,033","17@$3,849","0.34","615@$106","(,13,4,)","$278,217"]
+}
+~~~
+API Call Example
+~~~
+  fetch("https://pq2xyqsgla.execute-api.eu-north-1.amazonaws.com/testing/", {
+      method: "POST",
+      body: JSON.stringify({
+          accessToken,
+          fileID,
+          outputName,
+          CSVdata
+  }),
+      headers: {
+          "Content-type": "application/json",
+          "Accept":"*/*"
+  }
+  })
+~~~
+
+### Getting a Response from AWS
+Sometimes the API will take several minutes to process and get data from Google. Therefore no response is given, look at asynchronous invocation to get a response.
+
+
 
 
 
