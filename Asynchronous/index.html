@@ -1,0 +1,329 @@
+<!doctype html>
+<html>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .box{
+            margin:0 auto; 
+            width:600px;
+            padding:20px;
+            background:#f9f9f9;
+            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+            }
+        .button {
+            background-color: #363636; /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            -webkit-transition-duration: 0.4s; /* Safari */
+            transition-duration: 0.4s;
+            border-radius: 5px;
+            }
+        .input{
+            background-color: #e0e0e0; /* Green */
+            border: grey;
+            color: white;
+            padding: 15px 32px;
+            border-radius: 5px;      
+        }
+        .button2:hover {
+            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+            }
+    </style>
+    <head>
+        <title>CSV to Google Slides</title>
+    </head>
+    <body>
+        <center><h1>CSV to Google Slides</h1></center>
+        <div class="box">
+            <form id="myform">
+
+                <h3>STEP 1: Select CSV File</h3>
+                <label for="file"></label>
+                <input class="button button2" id="file" name="file" type="file" accept=".csv"/>
+                <br>
+
+                <h3>STEP 2: Log in to Google Drive</h3>
+                <!--Add buttons to initiate auth sequence and sign out-->
+                <button class="button button2" id="authorize_button" onclick="handleAuthClick()" type="button">Authorize</button>
+                <button class="button button2" id="signout_button" onclick="handleSignoutClick()" type="button">Sign Out</button>
+                <br>
+
+                <h3>STEP 3: Select Template File</h3>
+                <label for="template"></label>
+                <button class="button button2" id="authorize_button" onclick="createPicker()" type="button">Choose File</button>
+                <label id="template"></label>
+                <br>
+
+                <h3>STEP 4: Name Output File</h3>
+                <label for="output"></label>
+                <input class="input" id="output" name="output" type="text" />
+
+                <br>
+                <br>
+                <center><button class="button button2" type="button" onclick="generate();">Generate</button></center>
+                <h3>Response:</h3>
+                <p id="responseText">No Request Sent</p>
+              </form>
+        </div>
+
+        <pre id="content" style="white-space: pre-wrap;"></pre>
+        <p id="token"></p>
+
+        <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.2/papaparse.min.js"></script>
+
+        <script type="text/javascript">
+            /* exported gapiLoaded */
+            /* exported gisLoaded */
+            /* exported handleAuthClick */
+            /* exported handleSignoutClick */
+          
+            // Authorization scopes required by the API; multiple scopes can be
+            // included, separated by spaces.
+            const SCOPES = 'https://www.googleapis.com/auth/drive.metadata.readonly https://www.googleapis.com/auth/presentations https://www.googleapis.com/auth/drive';
+          
+            // TODO(developer): Set to client ID and API key from the Developer Console
+            const CLIENT_ID = "341236422016-lcv56vfvqpcsdoqq6ahjpa6ghrpn57rc.apps.googleusercontent.com";
+            const API_KEY = 'AIzaSyBttu7SNTpOotMsevMxgiAGLXqOvnq4aWQ';
+          
+            // TODO(developer): Replace with your own project number from console.developers.google.com.
+            const APP_ID = '341236422016';
+          
+            let tokenClient;
+            let pickerInited = false;
+            let gisInited = false;
+
+            let accessToken = null;
+            let fileID=null;
+            let outputName=null;
+            let CSVfile=null;
+            let CSVdata;
+          
+          
+            document.getElementById('authorize_button').style.visibility = 'visible';
+            document.getElementById('signout_button').style.visibility = 'hidden';
+
+            /**
+             * Send API POST request
+             */
+
+            //POLL UNTIL A NON FALSE RESULT IS REACHED (the slide code has finished processing, return a link)
+            function pollingFunction(key,startTime){
+              console.log(key)
+              const currentTime = new Date().getTime();
+              const elapsedTime = currentTime - startTime;
+              document.getElementById("responseText").innerText = "POST Request Sent - Waiting on Response... Polling Time Elapsed: "+elapsedTime/1000+"s"
+              if (elapsedTime >= 300000) { // 5 minutes = 300,000 milliseconds
+                console.log("Polling stopped after 5 minutes.");
+                return; // Stop polling
+              };
+
+              fetch("https://u5ydjdjy0j.execute-api.eu-north-1.amazonaws.com/build?key="+key, {
+                            method: "GET",
+                            headers: {
+                                "Content-type": "application/json",
+                                "Accept":"*/*",
+                        }
+                        })
+                        .then((response) => response.json())
+                        .then((json) => {
+                          console.log(json)
+                          console.log(json["body"])
+                          if (json["body"] !== '"False"') {
+                            // If response is not 'False', do something with the response or stop polling
+                            console.log("FINISHED")
+                            if (json["body"].includes("https://")){
+                              document.getElementById("responseText").innerText = "SUCCESSFUL RESPONSE:\nLink: "+json["body"]+"\nPolling Time Elapsed: "+elapsedTime/1000+"s"
+                            }
+                            else{
+                              document.getElementById("responseText").innerText = "FAILED RESPONSE:\n"+json["body"]+"\nPolling Time Elapsed: "+elapsedTime/1000+"s"
+                            };
+                            
+                          } else {
+                            // If response is 'False', continue polling after a delay of 10 seconds
+                            setTimeout(() => {
+                                pollingFunction(key, startTime);
+                            }, 10000); // 10000 milliseconds = 10 seconds
+                          }
+                        })
+                        .catch((error) => {
+                          console.error('Error:', error);
+                          // Retry polling after a delay of 10 seconds in case of error
+                          setTimeout(() => {
+                              pollingFunction(key, startTime);
+                          }, 10000); // 10000 milliseconds = 10 seconds
+                      });;
+            };
+
+
+
+            function generate(){
+                //Get and validate the required data
+                outputName = window.document.getElementById('output').value;
+                CSVfile=window.document.getElementById('file').files[0];
+
+                Papa.parse(CSVfile, {
+                    complete: function(results) {
+                        console.log(results);
+                        CSVdata=results["data"];
+
+                        CSVdata=CSVdata.map(innerArray => innerArray.join('¶')).join('¦');
+                        //If valid then send the API request
+                        let returnValue;
+                        console.log(JSON.stringify({
+                                accessToken,
+                                fileID,
+                                outputName,
+                                CSVdata
+                        }));
+                        fetch("https://u5ydjdjy0j.execute-api.eu-north-1.amazonaws.com/build", {
+                            method: "POST",
+                            body: JSON.stringify({
+                                accessToken,
+                                fileID,
+                                outputName,
+                                CSVdata
+                        }),
+                            headers: {
+                                "Content-type": "application/json",
+                                "Accept":"*/*"
+                        }
+                        })
+                        .then((response) => response.json())
+                        .then((json) => {
+                          console.log(json);
+                          console.log(json["context"]["request-id"]);
+                          key = json["context"]["request-id"];
+                          const startTime = new Date().getTime();
+                          pollingFunction(key,startTime);
+                        });
+
+
+                    }
+                });
+            };
+          
+            /**
+             * Callback after api.js is loaded.
+             */
+            function gapiLoaded() {
+              gapi.load('client:picker', initializePicker);
+            }
+          
+            /**
+             * Callback after the API client is loaded. Loads the
+             * discovery doc to initialize the API.
+             */
+            async function initializePicker() {
+              await gapi.client.load('https://www.googleapis.com/discovery/v1/apis/drive/v3/rest');
+              pickerInited = true;
+              maybeEnableButtons();
+            }
+          
+            /**
+             * Callback after Google Identity Services are loaded.
+             */
+            function gisLoaded() {
+              tokenClient = google.accounts.oauth2.initTokenClient({
+                client_id: CLIENT_ID,
+                scope: SCOPES,
+                callback: '',// defined later
+              });
+              gisInited = true;
+              maybeEnableButtons();
+            }
+          
+            /**
+             * Enables user interaction after all libraries are loaded.
+             */
+            function maybeEnableButtons() {
+              if (pickerInited && gisInited) {
+                document.getElementById('authorize_button').style.visibility = 'visible';
+              }
+            }
+          
+
+            
+            /**
+             *  Sign in the user upon button click.
+             */
+            function handleAuthClick() {
+              tokenClient.callback = async (response) => {
+                if (response.error !== undefined) {
+                  throw (response);
+                }
+                accessToken = response.access_token;
+                secret = response.cl;
+                console.log(secret);
+                document.getElementById('signout_button').style.visibility = 'visible';
+                document.getElementById('authorize_button').innerText = 'Refresh';
+                //await createPicker(); COMMENTED OUT AS ANOTHER BUTTON WILL DO THIS
+              };
+          
+              if (accessToken === null) {
+                // Prompt the user to select a Google Account and ask for consent to share their data
+                // when establishing a new session.
+                tokenClient.requestAccessToken({prompt: 'consent'});
+              } else {
+                // Skip display of account chooser and consent dialog for an existing session.
+                tokenClient.requestAccessToken({prompt: ''});
+              }
+
+            }
+          
+            /**
+             *  Sign out the user upon button click.
+             */
+            function handleSignoutClick() {
+              if (accessToken) {
+                accessToken = null;
+                google.accounts.oauth2.revoke(accessToken);
+                document.getElementById('authorize_button').innerText = 'Authorize';
+                document.getElementById('signout_button').style.visibility = 'hidden';
+              }
+            }
+          
+            /**
+             *  Create and render a Picker object for searching slides.
+             */
+            function createPicker() {
+              const view = new google.picker.View(google.picker.ViewId.DOCS);
+              view.setMimeTypes('application/vnd.google-apps.presentation');
+              const picker = new google.picker.PickerBuilder()
+                  .setDeveloperKey(API_KEY)
+                  .setAppId(APP_ID)
+                  .setTitle("Select Slides File")
+                  .setOAuthToken(accessToken)
+                  .addView(view)
+                  .setCallback(pickerCallback)
+                  .build();
+              picker.setVisible(true);
+            }
+          
+            /**
+             * Displays the file details of the user's selection.
+             * @param {object} data - Containers the user selection from the picker
+             */
+            async function pickerCallback(data) {
+              if (data.action === google.picker.Action.PICKED) {
+                let text = "";
+                let id = data["docs"][0]["id"]
+                let name = data["docs"][0]["name"]
+                text = "File Name: "+ name +" File ID: "+id;
+                fileID=id;
+                window.document.getElementById('template').innerText = name;
+                //Name, ID, Parent ID
+              }
+            }
+          </script>
+          <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
+          <script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
+    </body>
+</html>
