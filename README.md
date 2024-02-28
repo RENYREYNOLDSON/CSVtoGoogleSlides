@@ -172,5 +172,6 @@ Polling Function
 Look at index.html to understand the format of the responses.
 
 ## Additional Asynchronous Implementation Documentation
+Below are more details and requirements to aid the development of further functions on AWS.
 Logo: ![Alt](https://seeklogo.com/images/A/aws-api-gateway-logo-368082D845-seeklogo.com.png "Title")
 
