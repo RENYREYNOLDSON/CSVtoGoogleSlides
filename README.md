@@ -82,7 +82,7 @@ In order to get a response from the REST API on a long run time function we must
 ### Post Request with Polling
 API Endpoint
 ~~~
-https://pq2xyqsgla.execute-api.eu-north-1.amazonaws.com/testing
+https://u5ydjdjy0j.execute-api.eu-north-1.amazonaws.com/build
 ~~~
 The passed data should be raw JSON containing 
 1. Google Access Token
@@ -102,7 +102,7 @@ Example JSON Data
 API Call Example
 ```js
    CSVdata=CSVdata.map(innerArray => innerArray.join('¶')).join('¦');
-   fetch("https://u5ydjdjy0j.execute-api.eu-north-1.amazonaws.com/test", {
+   fetch("https://u5ydjdjy0j.execute-api.eu-north-1.amazonaws.com/build", {
        method: "POST",
        body: JSON.stringify({
            accessToken,
@@ -133,7 +133,7 @@ Polling Function
        console.log("Polling stopped after 5 minutes.");
        return; // Stop polling
      };
-     fetch("https://u5ydjdjy0j.execute-api.eu-north-1.amazonaws.com/test?key="+key, {
+     fetch("https://u5ydjdjy0j.execute-api.eu-north-1.amazonaws.com/build?key="+key, {
                    method: "GET",
                    headers: {
                        "Content-type": "application/json",
