@@ -177,7 +177,7 @@ Below are more details on the correct implementation of the used AWS services, t
 ### API Gateway
 - Each API contains multiple created methods e.g. GET,POST,OPTIONS.
 - The option for cross-origin resource sharing (CORS) must be enabled on the API to allow calling of the function from any URL.
-- The INTEGRATION REQUEST is responsible for integrating the request with other AWS services, to pass our data to DynamoDB we use a Mapping Template in the Integration Request. It essentially maps data from the incoming JSON onto fields in the DynamoDB table.
+- The POST INTEGRATION REQUEST is responsible for integrating the request with other AWS services, to pass our data to DynamoDB we use a Mapping Template in the Integration Request. It essentially maps data from the incoming JSON onto fields in the DynamoDB table.
 ~~~
 { 
     "TableName": "CSVtoSlides_Table",
@@ -206,7 +206,7 @@ Below are more details on the correct implementation of the used AWS services, t
     }
 }
 ~~~
-- The INTEGRATION RESPONSE mapping template denotes how data should be returned to the client. For our POST request we just use the default 'Passthrough' mapping template:
+- The POST INTEGRATION RESPONSE mapping template denotes how data should be returned to the client. For our POST request we just use the default 'Passthrough' mapping template:
 ~~~
 ##  See https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-mapping-template-reference.html
 ##  This template will pass through all parameters including path, querystring, header, stage variables, and context through to the integration endpoint via the body/payload
@@ -262,6 +262,12 @@ Below are more details on the correct implementation of the used AWS services, t
 - AWS Lambda functions can be defined in several languages. For this project Python3.12 has been used.
 - The CSVtoSlides function requires several external libraries, these libraries should be downloaded into a /Python folder and turned into a zip file. Then this zip should be uploaded into a AWS Lambda 'Layer'. This layer can then be added to the lambda function so that it can access those dependencies without having to upload them seperately for each new function.
 - For python the file should be called 'lambda_function.py' with the main function being 'lambda_handler(event, context)'. This can be edited within lambda!
+- For our asnch function we tweak the default parameters as needed:
+	Memory: 2048 MB
+	Timeout: 3 Minutes
+	Concurrency: 1000
+	Maximum age of event: 20 Minutes
+	Retry Attempts: 0
 ### CloudWatch
 - This service is used to monitor the usage of other AWS services, mainly to monitor the running of AWS lambda functions.
 ### IAM
