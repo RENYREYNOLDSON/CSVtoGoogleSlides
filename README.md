@@ -279,6 +279,7 @@ Retry Attempts: 0
 
 ## Resources
 [1] Managing Asynchronous Workflows with a REST API https://aws.amazon.com/blogs/architecture/managing-asynchronous-workflows-with-a-rest-api/
+
 [2] Making a Lambda function asynchronous https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-lambda-integration-async.html
 
 
