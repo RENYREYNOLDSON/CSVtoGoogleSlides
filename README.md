@@ -52,7 +52,7 @@ Example JSON Data
 }
 ~~~
 API Call Example
-~~~
+```js
   fetch("https://pq2xyqsgla.execute-api.eu-north-1.amazonaws.com/testing/", {
       method: "POST",
       body: JSON.stringify({
@@ -66,7 +66,7 @@ API Call Example
           "Accept":"*/*"
   }
   })
-~~~
+```
 Sometimes the API will take several minutes to process and get data from Google. Therefore no response is given, look at asynchronous invocation to get a response.
 
 ## Asynchronous Invocation
