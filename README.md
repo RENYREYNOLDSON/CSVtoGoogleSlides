@@ -171,5 +171,6 @@ Polling Function
 ```
 Look at index.html to understand the format of the responses.
 
+## Additional Implementation Documentation
 
 
