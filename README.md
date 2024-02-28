@@ -18,7 +18,7 @@ The **Google Picker API** is a great way to select slide files within a web app.
 
 ## AWS REST API's
 ## Synchronous Invocation
-Explanation of synchronous function and my method used
+We can send the data to an AWS REST API which passes it through directly to AWS Lambda. However, the timeout for a response is 30 seconds and this function can take several minutes. An AWS Lambda function can take up to 15 minutes, so it can still perform the function on AWS but no response is provided to the client.
 ![Syncrhonous REST API Architecture](https://miro.medium.com/v2/resize:fit:1400/format:webp/1*ZN6LVw0r9Po3asAqgu2oLg.png)
 ### Post Request
 API Endpoint
