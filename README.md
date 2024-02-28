@@ -16,6 +16,7 @@ There is a dedicated Google Cloud Project for this application as we need to rea
 The **Google Picker API** is a great way to select slide files within a web app. It provides a window with the familiar Google Design and allows us to return the ID of the required template file. Documentation of this can be found here https://developers.google.com/drive/picker/guides/overview
 
 ## AWS REST API Endpoints
+## AWS Lambda
 ![Asyncrhonous REST API Architecture](https://d2908q01vomqb2.cloudfront.net/fc074d501302eb2b93e2554793fcaf50b3bf7291/2021/05/06/Figure-1.jpg)
 
 ![Syncrhonous REST API Architecture](https://miro.medium.com/v2/resize:fit:1400/format:webp/1*ZN6LVw0r9Po3asAqgu2oLg.png)
@@ -63,8 +64,9 @@ API Call Example
 ### Getting a Response from AWS
 Sometimes the API will take several minutes to process and get data from Google. Therefore this POST request is asynchronous and no response is given.
 
+
+
+
+
 # OAuth 2.0
-
-# AWS Lambda
-
 
