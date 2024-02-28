@@ -71,7 +71,7 @@ Sometimes the API will take several minutes to process and get data from Google.
 ## Asynchronous Invocation
 In order to get a response from the REST API on a long run time function we must call the AWS lambda function asynchronously. To achieve this it is recommended to save the POST request into AWS's DynamoDB first, then have the lambda function triggered by this new item being added. The client then polls the API with a GET request containing the requests unique ID, until they get a valid response.
 #### Example Using this API:
-1. Client sends POST request containing specified data in the body to the REST API (CSVtoSlidesAPI-ASYNCH). The request-id (key) is returned to the client.
+1. Client sends POST request containing specified data in the body to the REST API (CSVtoSlidesAPI-ASYNCH). The request-id (key) is returned to the client. NOTE: The CSV data must be encoded to store in DynamoDB so the 2D array is joined using ¶ and ¦ as delimiters.
 2. A mapping template maps the recieved request data into columns for DynamoDB, and creates a new item (containing the request data) in the linked DynamoDB table (CSVtoSlides_Table). The item uses the request-id as the primary key and has a 'Complete' field to track if the lambda function has completed (initially this is False).
 3. When the new request is added to DynamoDB it triggers an attatched lambda function (CSVtoSlides-ASYNCH). This runs the CSVtoSlides function and updates the table with a link to the google slides file or an error message when applicable.
 4. The client starts polling the API using a GET request containing the request-id. This GET request runs a lambda function (CSVtoSlides_Get_Completed) which finds the item with request-id as the key and returns the 'Completed' field. Once the client recieves a response not equal to "False", we know that the main lambda function has finished and we can stop polling (or if timed out).
@@ -86,7 +86,7 @@ The passed data should be raw JSON containing
 1. Google Access Token
 2. Template File ID
 3. Output File Name
-4. CSV Data (Encoded)
+4. CSV Data (Encoded so that we can store in DynamoDB)
    
 Example JSON Data
 ~~~
