@@ -64,7 +64,7 @@ API Call Example
 Sometimes the API will take several minutes to process and get data from Google. Therefore no response is given, look at asynchronous invocation to get a response.
 
 ## Asynchronous Invocation
-Explanation of asynchronous function & my method used
+In order to get a response from the REST API on a long run time function we must call the AWS lambda function asynchronously. To achieve this it is recommended to save the POST request into AWS's DynamoDB first, then have the lambda function triggered by this new item being added. The client then polls the API with a GET request containing the requests unique ID, until they get a valid response.
 ![Asyncrhonous REST API Architecture](https://d2908q01vomqb2.cloudfront.net/fc074d501302eb2b93e2554793fcaf50b3bf7291/2021/05/06/Figure-1.jpg)
 ### Post Request with Polling
 API Endpoint
