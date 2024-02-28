@@ -7,8 +7,9 @@
 
 ## Accessing the Google Slides API
 **This code takes a CSV file and a Google Slide Template, it then appends the data to the template in a meaningful way.**\
-index.html has example code to access the API from a web app (Cannot be run locally as AWS does not allow API calls from localhost).
+index.html has example code to access the API from a web app (Must be run on http://127.0.0.1:5000).
 There is a dedicated Google Cloud Project for this application as we need to read and write to Google Slide files. Currently it is not published so your gmail account will need to be on the testing user's list to access. To add an account, email reynoldson2002@gmail.com and it will be added ASAP. On logging in to google through the app portal an access token will be created.
+In addition to this, to include the example Google Authentication system provided the URL must be verified by the Google Cloud Project.
 
 **Google Client ID:** '341236422016-lcv56vfvqpcsdoqq6ahjpa6ghrpn57rc.apps.googleusercontent.com'\
 **Google App ID:** '341236422016'\
