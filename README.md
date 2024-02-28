@@ -263,13 +263,14 @@ Below are more details on the correct implementation of the used AWS services, t
 - The CSVtoSlides function requires several external libraries, these libraries should be downloaded into a /Python folder and turned into a zip file. Then this zip should be uploaded into a AWS Lambda 'Layer'. This layer can then be added to the lambda function so that it can access those dependencies without having to upload them seperately for each new function.
 - For python the file should be called 'lambda_function.py' with the main function being 'lambda_handler(event, context)'. This can be edited within lambda!
 - For our asnch function we tweak the default parameters as needed:
-  ~~~
-  	Memory: 2048 MB
-	Timeout: 3 Minutes
-	Concurrency: 1000
-	Maximum age of event: 20 Minutes
-	Retry Attempts: 0
-  ~~~
+  
+~~~
+Memory: 2048 MB
+Timeout: 3 Minutes
+Concurrency: 1000
+Maximum age of event: 20 Minutes
+Retry Attempts: 0
+~~~
 ### CloudWatch
 - This service is used to monitor the usage of other AWS services, mainly to monitor the running of AWS lambda functions.
 ### IAM
