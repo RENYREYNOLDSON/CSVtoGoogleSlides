@@ -20,8 +20,9 @@ The **Google Picker API** is a great way to select slide files within a web app.
 ## Synchronous Invocation
 We can send the data to an AWS REST API which passes it through directly to AWS Lambda. However, the timeout for a response is 30 seconds and this function can take several minutes. An AWS Lambda function can take up to 15 minutes, so it can still perform the function on AWS but no response is provided to the client. It's also possible to directly call the lambda function from it's resource URL for this.\
 #### Example Using this API:
-1. Client sends request containing specified data.
-2. 
+1. Client sends POST request containing specified data in the body to the REST API (CSVtoSlidesAPI).
+2. This triggers a lambda function (CSVtoSlides) which attempts to run the CSVtoSlides function.
+3. No response is given to the client.
 ![Syncrhonous REST API Architecture](https://miro.medium.com/v2/resize:fit:1400/format:webp/1*ZN6LVw0r9Po3asAqgu2oLg.png)
 ### Post Request
 API Endpoint
@@ -68,6 +69,11 @@ Sometimes the API will take several minutes to process and get data from Google.
 
 ## Asynchronous Invocation
 In order to get a response from the REST API on a long run time function we must call the AWS lambda function asynchronously. To achieve this it is recommended to save the POST request into AWS's DynamoDB first, then have the lambda function triggered by this new item being added. The client then polls the API with a GET request containing the requests unique ID, until they get a valid response.
+#### Example Using this API:
+1. Client sends POST request containing specified data in the body to the REST API (CSVtoSlidesAPI-ASYNCH). The request-id (key) is returned to the client.
+2. A mapping template maps the recieved request data into columns for DynamoDB, and creates a new item (containing the request data) in the linked DynamoDB table (CSVtoSlides_Table). The item uses the request-id as the primary key and has a 'Complete' field to track if the lambda function has completed (initially this is False).
+3. When the new request is added to DynamoDB it triggers an attatched lambda function (CSVtoSlides-ASYNCH). This runs the CSVtoSlides function and updates the table with a link to the google slides file or an error message when applicable.
+4. The client starts polling the API using a GET request containing the request-id. This GET request runs a lambda function (CSVtoSlides_Get_Completed) which finds the item with request-id as the key and returns the 'Completed' field. Once the client recieves a response not equal to "False", we know that the main lambda function has finished and we can stop polling (or if timed out).
 ![Asyncrhonous REST API Architecture](https://d2908q01vomqb2.cloudfront.net/fc074d501302eb2b93e2554793fcaf50b3bf7291/2021/05/06/Figure-1.jpg)
 ### Post Request with Polling
 API Endpoint
