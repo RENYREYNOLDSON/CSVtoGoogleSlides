@@ -63,6 +63,8 @@ API Call Example
 ### Getting a Response from AWS
 Sometimes the API will take several minutes to process and get data from Google. Therefore this POST request is asynchronous and no response is given.
 
+# OAuth 2.0
 
+# AWS Lambda
 
 
