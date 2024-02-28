@@ -1,5 +1,5 @@
 # CSVtoGoogleSlides
-## This repository documents the development of Synchronous and Asynchronous serverless functions developed in AWS Lambda.
+### This repository documents the development of Synchronous and Asynchronous serverless functions developed in AWS Lambda.
 **This code takes a CSV file and a Google Slide Template, it then appends the data to the template in a meaningful way.**\
 *Developed for Advertize.net for integration with AWS lambda.*\
 *Contact: reynoldson2002@gmail.com*
