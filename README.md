@@ -115,8 +115,6 @@ API Call Example
    })
    .then((response) => response.json())
    .then((json) => {
-     console.log(json);
-     console.log(json["context"]["request-id"]);
      key = json["context"]["request-id"];
      const startTime = new Date().getTime();
      pollingFunction(key,startTime);
@@ -126,7 +124,6 @@ Polling Function
 ~~~
    //POLL UNTIL A NON FALSE RESULT IS REACHED (the slide code has finished processing, return a link)
    function pollingFunction(key,startTime){
-     console.log(key)
      const currentTime = new Date().getTime();
      const elapsedTime = currentTime - startTime;
      document.getElementById("responseText").innerText = "POST Request Sent - Waiting on Response... Polling Time Elapsed: "+elapsedTime/1000+"s"
@@ -134,7 +131,6 @@ Polling Function
        console.log("Polling stopped after 5 minutes.");
        return; // Stop polling
      };
-
      fetch("https://u5ydjdjy0j.execute-api.eu-north-1.amazonaws.com/test?key="+key, {
                    method: "GET",
                    headers: {
@@ -144,11 +140,8 @@ Polling Function
                })
                .then((response) => response.json())
                .then((json) => {
-                 console.log(json)
-                 console.log(json["body"])
                  if (json["body"] !== '"False"') {
                    // If response is not 'False', do something with the response or stop polling
-                   console.log("FINISHED")
                    if (json["body"].includes("https://")){
                      document.getElementById("responseText").innerText = "SUCCESSFUL RESPONSE:\nLink: "+json["body"]+"\nPolling Time Elapsed: "+elapsedTime/1000+"s"
                    }
