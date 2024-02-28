@@ -282,7 +282,9 @@ Retry Attempts: 0
 
 [2] Making a Lambda function asynchronous https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-lambda-integration-async.html
 
+[3] Google OAuth 2.0 https://developers.google.com/identity/protocols/oauth2
 
+[4] AWS Home https://aws.amazon.com/?nc2=h_lg
 
 
 
