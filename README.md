@@ -254,12 +254,16 @@ Below are more details on the correct implementation of the used AWS services, t
 }
 ~~~
 - For the GET request we also use the default passthrough mapping templates, as we pass the data straight to a lambda function here.
+- The API must have a permission role which allows full access to the DynamoDB table, this can be set in IAM.
 ### DynamoDB
-
+- Data items added to the table expire after a given amount of time defined in the Time-To-Live (TTL) menu. This can also be disabled if needed.
+- Any service accessing a table MUST have the correct permissions or an error will be thrown by AWS.
 ### Lambda
-
+- AWS Lambda functions can be defined in several languages. For this project Python3.12 has been used.
+- The CSVtoSlides function requires several external libraries, these libraries should be downloaded into a /Python folder and turned into a zip file. Then this zip should be uploaded into a AWS Lambda 'Layer'. This layer can then be added to the lambda function so that it can access those dependencies without having to upload them seperately for each new function.
+- 
 ### CloudWatch
-
+- This service is used to monitor the usage of other AWS services, mainly to monitor the running of AWS lambda functions.
 ### IAM
 
 
