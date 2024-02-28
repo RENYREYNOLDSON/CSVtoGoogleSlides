@@ -261,11 +261,12 @@ Below are more details on the correct implementation of the used AWS services, t
 ### Lambda
 - AWS Lambda functions can be defined in several languages. For this project Python3.12 has been used.
 - The CSVtoSlides function requires several external libraries, these libraries should be downloaded into a /Python folder and turned into a zip file. Then this zip should be uploaded into a AWS Lambda 'Layer'. This layer can then be added to the lambda function so that it can access those dependencies without having to upload them seperately for each new function.
-- 
+- For python the file should be called 'lambda_function.py' with the main function being 'lambda_handler(event, context)'. This can be edited within lambda!
 ### CloudWatch
 - This service is used to monitor the usage of other AWS services, mainly to monitor the running of AWS lambda functions.
 ### IAM
-
+- This is used to create roles and change the permissions for each role.
+- For this project, one role was used and the ARN was given to each of the different service objects used.
 
 
 
