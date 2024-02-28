@@ -253,6 +253,7 @@ Below are more details on the correct implementation of the used AWS services, t
     }
 }
 ~~~
+- For the GET request we also use the default passthrough mapping templates, as we pass the data straight to a lambda function here.
 ### DynamoDB
 
 ### Lambda
