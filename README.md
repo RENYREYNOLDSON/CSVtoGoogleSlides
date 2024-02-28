@@ -25,7 +25,7 @@ We can send the data to an AWS REST API which passes it through directly to AWS 
 3. No response is given to the client.
    
 ![Syncrhonous REST API Architecture](https://miro.medium.com/v2/resize:fit:1400/format:webp/1*ZN6LVw0r9Po3asAqgu2oLg.png)
-AWS Synchronous REST API Schematic
+*Image: AWS Synchronous REST API Schematic*
 ### Post Request
 API Endpoint
 ~~~
@@ -78,7 +78,7 @@ In order to get a response from the REST API on a long run time function we must
 4. The client starts polling the API using a GET request containing the request-id. This GET request runs a lambda function (CSVtoSlides_Get_Completed) which finds the item with request-id as the key and returns the 'Completed' field. Once the client recieves a response not equal to "False", we know that the main lambda function has finished and we can stop polling (or if timed out).
    
 ![Asyncrhonous REST API Architecture](https://d2908q01vomqb2.cloudfront.net/fc074d501302eb2b93e2554793fcaf50b3bf7291/2021/05/06/Figure-1.jpg)
-AWS Asynchronous REST API Schematic
+*Image: AWS Asynchronous REST API Schematic*
 ### Post Request with Polling
 API Endpoint
 ~~~
