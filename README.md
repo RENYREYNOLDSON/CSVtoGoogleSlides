@@ -172,5 +172,5 @@ Polling Function
 Look at index.html to understand the format of the responses.
 
 ## Additional Asynchronous Implementation Documentation
-Logo: ![Alt](https://seeklogo.com/images/A/aws-api-gateway-logo-368082D845-seeklogo.com.png "Title")
+Logo: ![Alt][1](https://seeklogo.com/images/A/aws-api-gateway-logo-368082D845-seeklogo.com.png "Title")
 
