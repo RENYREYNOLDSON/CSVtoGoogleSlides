@@ -9,13 +9,12 @@
 **This code takes a CSV file and a Google Slide Template, it then appends the data to the template in a meaningful way.**\
 index.html has example code to access the API from a web app (Must be run on http://127.0.0.1:5000).
 There is a dedicated Google Cloud Project for this application as we need to read and write to Google Slide files. Currently it is not published so your gmail account will need to be on the testing user's list to access. To add an account, email reynoldson2002@gmail.com and it will be added ASAP. On logging in to google through the app portal an access token will be created.
-In addition to this, to include the example Google Authentication system provided the URL must be verified by the Google Cloud Project.
 
 **Google Client ID:** '341236422016-lcv56vfvqpcsdoqq6ahjpa6ghrpn57rc.apps.googleusercontent.com'\
 **Google App ID:** '341236422016'\
 **Required Scopes:** 'https://www.googleapis.com/auth/drive.metadata.readonly https://www.googleapis.com/auth/presentations https://www.googleapis.com/auth/drive'
 
-The **Google Picker API** is a great way to select slide files within a web app. It provides a window with the familiar Google Design and allows us to return the ID of the required template file. Documentation of this can be found here https://developers.google.com/drive/picker/guides/overview
+The **Google Picker API** is a great way to select slide files within a web app. It provides a window with the familiar Google Design and allows us to return the ID of the required template file. Documentation of this can be found here https://developers.google.com/drive/picker/guides/overview. To use this, the page URL must be added on the Google Cloud Project Console.
 
 ## AWS REST API Endpoints
 ## AWS Lambda
