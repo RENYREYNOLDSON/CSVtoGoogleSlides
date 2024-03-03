@@ -176,6 +176,7 @@ Below are more details on the correct implementation of the used AWS services, t
 
 ### API Gateway
 - Each API contains multiple created methods e.g. GET,POST,OPTIONS.
+- For all invocations to be asynchronous: In Integration request, add an X-Amz-Invocation-Type header with a static value of 'Event'.
 - The option for cross-origin resource sharing (CORS) must be enabled on the API to allow calling of the function from any URL.
 - The Invocation Header must be changed from the default for asynchronous functions!
 - The POST INTEGRATION REQUEST is responsible for integrating the request with other AWS services, to pass our data to DynamoDB we use a Mapping Template in the Integration Request. It essentially maps data from the incoming JSON onto fields in the DynamoDB table.
